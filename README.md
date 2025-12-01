@@ -1,4 +1,4 @@
-# Booki and Quotes Manager
+# Book and Quotes Manager
 
 A full-stack web application for managing books and favorite quotes with user authentication.
 
