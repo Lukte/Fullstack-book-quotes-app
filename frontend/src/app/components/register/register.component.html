@@ -1,0 +1,232 @@
+
+<!-- Main container with gradient background -->
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      
+      <!-- Register Card -->
+      <div class="card shadow">
+        
+        <!-- Card Header -->
+        <div class="card-header bg-success text-white text-center">
+          <h3>
+            <!-- Font Awesome user-plus icon for registration -->
+            <i class="fas fa-user-plus me-2"></i>
+            Register
+          </h3>
+        </div>
+        
+        <!-- Card Body - contains the form -->
+        <div class="card-body">
+          
+          <!-- 
+            Success Alert
+            
+            *ngIf: only shows if successMessage has content
+            Shows when registration is successful
+          -->
+          <div *ngIf="successMessage" class="alert alert-success" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ successMessage }}
+          </div>
+
+          <!-- 
+            Error Alert
+            
+            *ngIf: only shows if errorMessage has content
+            Shows validation errors or backend errors
+          -->
+          <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            {{ errorMessage }}
+          </div>
+
+          <!-- 
+            Register Form
+            
+            (ngSubmit): calls onRegister() when form is submitted
+            #registerForm: creates reference for validation checking
+          -->
+          <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+            
+            <!-- Username Input Group -->
+            <div class="mb-3">
+              <label for="username" class="form-label">
+                <i class="fas fa-user me-2"></i>
+                Username
+              </label>
+              
+              <!-- 
+                Username input field
+                
+                [(ngModel)]: Two-way binding with component property
+                name="username": required for ngModel
+                required: HTML5 validation
+                minlength="3": Username must be at least 3 characters
+                #usernameInput: reference for validation messages
+                [disabled]="isLoading": disable during registration
+              -->
+              <input
+                type="text"
+                class="form-control"
+                id="username"
+                name="username"
+                [(ngModel)]="username"
+                required
+                minlength="3"
+                #usernameInput="ngModel"
+                [disabled]="isLoading"
+                placeholder="Choose a username (min 3 characters)"
+              />
+              
+              <!-- Validation error messages -->
+              <div *ngIf="usernameInput.invalid && usernameInput.touched" class="text-danger mt-1">
+                <small *ngIf="usernameInput.errors?.['required']">Username is required</small>
+                <small *ngIf="usernameInput.errors?.['minlength']">Username must be at least 3 characters</small>
+              </div>
+            </div>
+
+            <!-- Email Input Group -->
+            <div class="mb-3">
+              <label for="email" class="form-label">
+                <i class="fas fa-envelope me-2"></i>
+                Email
+              </label>
+              
+              <!-- 
+                Email input field
+                
+                type="email": HTML5 email validation
+                email: Angular email validator
+              -->
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                required
+                email
+                #emailInput="ngModel"
+                [disabled]="isLoading"
+                placeholder="Enter your email"
+              />
+              
+              <!-- Validation errors -->
+              <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger mt-1">
+                <small *ngIf="emailInput.errors?.['required']">Email is required</small>
+                <small *ngIf="emailInput.errors?.['email']">Please enter a valid email</small>
+              </div>
+            </div>
+
+            <!-- Password Input Group -->
+            <div class="mb-3">
+              <label for="password" class="form-label">
+                <i class="fas fa-lock me-2"></i>
+                Password
+              </label>
+              
+              <!-- 
+                Password input field
+                
+                type="password": hides characters
+                minlength="6": backend requirement
+              -->
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                required
+                minlength="6"
+                #passwordInput="ngModel"
+                [disabled]="isLoading"
+                placeholder="Enter password (min 6 characters)"
+              />
+              
+              <!-- Validation errors -->
+              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger mt-1">
+                <small *ngIf="passwordInput.errors?.['required']">Password is required</small>
+                <small *ngIf="passwordInput.errors?.['minlength']">Password must be at least 6 characters</small>
+              </div>
+            </div>
+
+            <!-- Confirm Password Input Group -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">
+                <i class="fas fa-lock me-2"></i>
+                Confirm Password
+              </label>
+              
+              <!-- 
+                Confirm password input
+                
+                User must type password twice
+                Component checks if they match
+              -->
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                [(ngModel)]="confirmPassword"
+                required
+                #confirmPasswordInput="ngModel"
+                [disabled]="isLoading"
+                placeholder="Re-enter your password"
+              />
+              
+              <!-- Validation errors -->
+              <div *ngIf="confirmPasswordInput.invalid && confirmPasswordInput.touched" class="text-danger mt-1">
+                <small>Please confirm your password</small>
+              </div>
+            </div>
+
+            <!-- 
+              Register Button
+                    
+              Disabled when:
+              - Form has validation errors
+              - Registration is in progress (isLoading)
+            -->
+            <button
+              type="submit"
+              class="btn btn-success w-100"
+              [disabled]="registerForm.invalid || isLoading"
+            >
+              <!-- Show spinner when loading, else show register text -->
+              <ng-container *ngIf="isLoading; else registerText">
+                <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                Creating account...
+              </ng-container>
+              
+              <!-- Template for when NOT loading -->
+              <ng-template #registerText>
+                <i class="fas fa-user-plus me-2"></i>
+                Register
+              </ng-template>
+            </button>
+          </form>
+
+          <!-- Divider -->
+          <hr class="my-4">
+
+          <!-- Login Link -->
+          <div class="text-center">
+            <p class="mb-0">
+              Already have an account?
+              <!-- 
+                Click event: navigates to login page
+              -->
+              <a href="javascript:void(0)" (click)="goToLogin()" class="text-success">
+                Login here
+              </a>
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

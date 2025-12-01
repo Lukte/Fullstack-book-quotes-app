@@ -1,0 +1,112 @@
+<!-- Quotes Component HTML -->
+<div class="container-fluid quotes-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="page-title">
+        <i class="fas fa-quote-left"></i>
+        My Quotes
+      </h1>
+      <p class="welcome-text">Welcome, {{ username }}!</p>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="header-actions">
+      <button class="btn btn-outline-primary me-2" (click)="goToBooks()">
+        <i class="fas fa-book"></i>
+        Books
+      </button>
+      <button class="btn btn-outline-danger" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Log out
+      </button>
+    </div>
+  </div>
+
+  <!-- Add New Quote Button -->
+  <div class="add-quote-section">
+    <button 
+      class="btn btn-success btn-lg" 
+      (click)="addQuote()"
+      [disabled]="!canAddMore || isLoading">
+      <i class="fas fa-plus-circle"></i>
+      Add New Quote
+    </button>
+    <p class="quote-count-info" *ngIf="quotes.length > 0">
+      {{ quotes.length }} / 5 quote
+    </p>
+  </div>
+
+  <!-- Success Message -->
+  <div class="alert alert-success alert-dismissible fade show" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    {{ successMessage }}
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-danger alert-dismissible fade show" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    {{ errorMessage }}
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="text-center my-5" *ngIf="isLoading">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+    <p class="mt-3">Loading quote...</p>
+  </div>
+
+  <!-- No Quotes Message -->
+  <div class="no-quotes-message" *ngIf="!isLoading && quotes.length === 0">
+    <div class="empty-state">
+      <i class="fas fa-quote-right fa-4x text-muted mb-3"></i>
+      <h3>No Quotes yet</h3>
+      <p>Add your favorit quotes to get started!</p>
+      <button class="btn btn-primary" (click)="addQuote()">
+        <i class="fas fa-plus"></i>
+        Add your first quote here
+      </button>
+    </div>
+  </div>
+
+  <!-- Quotes Grid -->
+  <div class="quotes-grid" *ngIf="!isLoading && quotes.length > 0">
+    <div class="quote-card" *ngFor="let quote of quotes">
+      <div class="quote-header">
+        <i class="fas fa-quote-left quote-icon"></i>
+      </div>
+      
+      <div class="quote-body">
+        <p class="quote-text">{{ quote.text }}</p>
+        <p class="quote-author">— {{ quote.author }}</p>
+      </div>
+
+      <div class="quote-footer">
+        <button 
+          class="btn btn-sm btn-outline-primary" 
+          (click)="editQuote(quote._id!)"
+          [disabled]="isLoading">
+          <i class="fas fa-edit"></i>
+          Edit
+        </button>
+        <button 
+          class="btn btn-sm btn-outline-danger" 
+          (click)="deleteQuote(quote)"
+          [disabled]="isLoading">
+          <i class="fas fa-trash-alt"></i>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Info -->
+  <div class="footer-info" *ngIf="!isLoading && quotes.length > 0">
+    <p class="text-muted">
+      <i class="fas fa-info-circle"></i>
+      You can have maximum of 5 favorite quotes.
+      <span *ngIf="!canAddMore"> You have reached the limit.</span>
+    </p>
+  </div>
+</div>

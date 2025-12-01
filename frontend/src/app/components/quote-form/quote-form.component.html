@@ -1,0 +1,159 @@
+<!-- Quote Form Component HTML -->
+ <div class="container-fluid form-container">
+    <!-- Header section -->
+     <div class="header-section">
+        <div class="header-content">
+        <h1 class="page-title">
+            <i class="fas fa-quote-left"></i>
+            {{ isEditMode ? 'Edit Quote' : 'Add New Quote' }}
+        </h1>
+         <p class="welcome-text">Welcome, {{ username }}!</p>
+     </div>
+     
+     <!-- Navigation bar -->
+      <div class="header-actions">
+        <button class="btn btn-outline-primary me-2" (click)="goToQuotes()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Quotes
+        </button>
+        <button class="btn btn-outline-danger" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Log out
+        </button>
+      </div>
+    </div>
+
+    <!-- Form Card -->
+     <div class="form-card">
+        <!-- Loading spinner -->
+         <div class="text-center my-5" *ngIf="isLoading && isEditMode">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3">Loading quotes...</p>
+         </div>
+
+         <!-- Error Message -->
+          <div class="alert alert-danger alert-dismissible fade show" *ngIf="errorMessage">
+            <i class="fas fa-exclamation-circle"></i>
+            {{ errorMessage }}
+            <button type="button" class="btn-close" (click)="errorMessage=''"></button>
+          </div>
+
+          <!-- Quote Form -->
+           <form *ngIf="!isLoading || !isEditMode" (ngSubmit)="onSubmit()" #quoteForm="ngForm">
+            
+            <!-- Quote text Field -->
+             <div class="mb-4">
+                <label for="text" class="form-label">
+                    <i class="fas fa-quote-right"></i>
+                    Quote text *
+                </label>
+                <textarea class="form-control" id="text" name="text" rows="5" [(ngModel)]="quote.text" placeholder="Write your favorite quote here..." required minlength="10" maxlength="500" #textInput="ngModel"></textarea>
+
+            <!-- Character Counter -->
+             <div class="form-text d-flex justify-content-between">
+                <span>
+                    <i class="fas fa-info-circle"></i>
+                    Minimum 10 charcters, maximum 500 characters
+                </span>
+                <span [class.text-danger]="quote.text.length > 500">
+                    {{ quote.text.length }} / 500
+                </span>
+             </div>
+
+             <!-- validation messages -->
+              <div class="text-danger mt-1" *ngIf="textInput.invalid && textInput.touched">
+                <small *ngIf="textInput.errors?.['required']">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Quot text is obligatory
+                </small>
+                <small *ngIf="textInput.errors?.['minlength']">
+                    Quote must at least be 10 characters
+                </small>
+              </div>
+             </div>
+
+             <!-- Author Field -->
+              <div class="mb-4">
+                <label for="author" class="form-label">
+                    <i class="fas fa-user"></i>
+                    Author *
+                </label>
+                <input
+                type="text"
+                class="form-control"
+                id="author"
+                name="author"
+                [(ngModel)]="quote.author"
+                placeholder="T.ex. Albert Einstein, Maya Angelou..."
+                required
+                minlength="2"
+                maxlength="100"
+                #authorInput="ngModel">
+                
+               <div class="form-text">
+                <i class="fas fa-info-circle"></i>
+                Name of the person who said the quote
+              </div>
+
+              <!-- Validation Messages -->
+              <div class="text-danger mt-1" *ngIf="authorInput.invalid && authorInput.touched">
+                <small *ngIf="authorInput.errors?.['required']">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Author is obligatory
+                </small>
+                <small *ngIf="authorInput.errors?.['minlength']">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Author must be at least 2 characters
+                </small>
+              </div> 
+            </div>
+
+            <!-- Quote Preview -->
+             <div class="quote-preview" *ngIf="quote.text && quote.author">
+                <h5 class="preview-title">
+                    <i class="fas fa-eye"></i>
+                    Preview
+                </h5>
+                <div class="preview-card">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p class="preview-text">{{ quote.text }}</p>
+                    <p class="preview-author">- {{ quote.author }}</p>
+                </div>
+             </div>
+
+             <!-- Form Actions -->
+              <div class="form-actions">
+                <button
+                type="button"
+                class="btn btn-secondary btn-lg"
+                (click)="cancel()"
+                [disabled]="isLoading">
+                Cancel
+            </button>
+
+            <button
+            type="submit"
+            class="btn btn-primary btn-lg"
+            [disabled]="quoteForm.invalid || isLoading">
+            <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+            <i *ngIf="!isLoading" class="fas fa-save"></i>
+            {{ isEditMode ? 'Update Quote' : 'Save quote' }}
+           </button>
+        </div>
+
+        <!-- Helper Text -->
+         <div class="helper-text text-center mt-4">
+            <p class="text-muted">
+                <i class="fas fa-lightbulb"></i>
+                Tips: Choose quotes that inspire and motivate you!
+            </p>
+            <p class="text-muted" *ngIf="!isEditMode">
+                <i class="fas fa-info-circle"></i>
+                You can have maximum of 5 favorite quotes.
+            </p>
+         </div>
+        </form>
+     </div>
+ </div>

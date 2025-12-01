@@ -1,0 +1,159 @@
+<!--
+Login Component Template
+-->
+
+<!-- Main container - Bootstrap classes for centering -->
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <!-- Login Card-->
+             <div class="card shadow">
+
+                <!-- Card Header-->
+                 <div class="card-header bg-primary text-white text-center">
+                    <h3>
+                        <!-- Font Awesome icon -->
+                         <i class="fas fa-sign-in me-2"></i>
+                         Login
+                    </h3>
+                 </div>
+
+                 <!-- Card body - contains the form -->
+                  <div class="card-body">
+
+                    <!--
+                    Error alert
+                    *ngIf directive: only shows this div if errorMessage has content
+                    -->
+                    <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+                        <!-- Font Awesome error icon -->
+                         <i class="fas fa-exclamation-circle me-2"></i>
+                         <!-- Displays the error message from TypeScript -->
+                          {{errorMessage}}
+                    </div>
+
+                    <!-- Login Form
+                     (ngSubmit): when this form is submitted (Enter key or button click), call onLogin()
+                     #loginForm: creates a reference to this form (for validation)
+                    -->
+                     <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+                        <!-- Username input Group -->
+                         <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="fas fa-user me-2"></i>
+                                Username
+                            </label>
+                            <!--
+                            Input field for username
+
+                            [(ngModel)]: two-way data binding
+                            - When user types, updates component.username
+                            - When component.username changes, updates input
+                            - Like a live connection between HTML and TypScript
+                            -->
+                            <input
+                            type="text"
+                            class="form-control"
+                            id="username"
+                            name="username"
+                            [(ngModel)]="username"
+                            required
+                            #usernameInput="ngModel"
+                            [disabled]="isLoading"
+                            placeholder="Enter your username"
+                            />
+
+                            <!--
+                            Validation error message
+                            shows only if:
+                            - usernameInput.invalid: field doesn't pass validation
+                            - usernameInput.touched: user has clicked/focused on field
+                            -->
+                            <div *ngIf="usernameInput.invalid && usernameInput.touched" class="text-danger mt-1">
+                                <small> Username is required</small>
+                            </div>
+                         </div>
+
+                         <!-- Password Iput Group -->
+                          <div class="mb-3">
+                            <label for="password" class="form-label">
+                                <i class="fas fa-lock me-2"></i>
+                                Password
+                            </label>
+                            <!-- Password input field
+                             type="password": hides characters with dots (...)
+                             similar bindings as username field
+                              -->
+                             <input
+                             type="password"
+                             class="form-control"
+                             id="password"
+                             name="password"
+                             [(ngModel)]="password"
+                             required
+                             #passwordInput="ngModel"
+                             [disabled]="isLoading"
+                             placeholder="Enter your password"
+                             />
+
+                             <!-- Validation error for password -->
+                              <div *ngIf="passwordInput.invalid && passwordInput.touched" class="text-danger mt-1">
+                                <small> Password is required </small>
+                              </div>
+                          </div>
+
+                          <!-- Login button
+                           type="submit": triggers form submission (calls onLogin)
+                           [disabled]: diables button if form invalid or loading
+
+                           Disabled when:
+                           - loginForm.invalid: form has validation error
+                           - isLoading: login request is on progress
+                           -->
+                           <button
+                           type="submit"
+                           class="btn btn-primary w-100"
+                           [disabled]="loginForm.invalid || isLoading"
+                           >
+                           <!-- Show different content based on isLoading state
+
+                            *ngIf /else pattern:
+                            - If isLoading is true, show spinner
+                            - Else show "Login" text
+                            -->
+                           <span *ngIf="isLoading; else loginText">
+                            <!-- Bootstrap spinner -->
+                             <span class="spinner-border spinner-border-sm me-2" role="status"></span>
+                             Login in...
+                           </span>
+
+                           <!-- Template for when NOT loading -->
+                            <ng-template #loginText>
+                                <i class="fas fa-sign-in-alt me-2"></i>
+                                Login
+                            </ng-template>
+                        </button>
+                     </form>
+
+                     <!-- Divider -->
+                      <hr class="my-4">
+
+                      <!-- Register Link -->
+                       <div class="text-center">
+                        <p class="mb-0">
+                            Don't have an account?
+                            <!-- Click event: calls on goToRegister() method 
+                             (click) is Angular's event binding
+                             -->
+                             <a href="javaScript:void(0)" (click)="goToRegister()" class="text-primary">
+                                Register here
+                             </a>
+                        </p>
+                       </div>
+
+                  </div>
+             </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,282 @@
+/* Quote Form Component styles */
+.form-container {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 1rem;
+}
+
+/* Header Section */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.header-content {
+   color: white; 
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.page-title i {
+    font-size: 2rem;
+}
+.welcome-text {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.header-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.header-actions .btn {
+    border: 2px solid white;
+    color: white;
+    font-weight: 500;
+}
+
+.header-actions .btn:hover {
+    background-color: white;
+    color: #667eea;
+}
+.header-actions .btn-outline-danger:hover{
+    background-color: white;
+    color: #dc3545;
+}
+
+/* Form card */
+.form-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* For elements */
+.form-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.for-label i {
+    color: #667eea;
+}
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+}
+.form-text {
+    color: #666;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+.form-text i {
+    margin-right: 0.3rem;
+}
+
+/* Validation Messages */
+.text-danger {
+    font-weight: 500;
+}
+.text-danger i {
+    margin-right: 0.3rem;
+}
+
+/* Quote Preview */
+.quote-preview {
+    margin: 2rem 0;
+    padding: 2rem;
+    background:linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border-radius: 15px;
+    border: 2px solid #667eea;
+}
+.preview-title {
+    color: #667eea;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.preview-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.quote-icon {
+    font-size: 2rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+.preview-text {
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
+    font-size: italic;
+    margin-bottom: 1rem;
+}
+.preview-author {
+    font-size: 1.1rem;
+    color: #667eea;
+    font-weight: 600;
+    text-align: right;
+    margin: 0;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+.form-actions .btn {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    min-width: 180px;
+}
+.form-actions .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+.form-actions .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+.form-actions .btn-primary {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+.form-actions .btn-primary_hover:not(:disabled) {
+    background-color: #5568d3;
+    border-color: #5568d3;
+}
+.form-actions .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+/* Helper Text */
+.helper-text {
+    margin-top: 2rem;
+    padding: 2rem;
+    border-top: 2px solid #e0e0e0;
+}
+.helper-text {
+    margin-right: 0.5rem;
+    color: #667eea;
+}
+
+/* Alert Messages */
+.alert {
+    border-radius: 10px;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+.alert i {
+    margin-right: 0.5rem;
+}
+
+/* Loading spinner */
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px){
+    .form-container{
+        padding: 1rem 0.5rem;
+    }
+    .header-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .header-content {
+        text-align: center;
+    }
+    .page-title {
+        font-size: 2rem;
+        justify-content: center;
+    }
+    .header-actions {
+        flex-direction: column;
+    }
+    .form-card {
+        padding: 2rem 1.5rem;
+    }
+    .form-actions {
+        flex-direction: column;
+    }
+    .form-actions .btn {
+        width: 100%;
+    }
+    .quote-preview {
+        padding: 1.5rem;
+    }
+}
+
+@media(max-width: 576px) {
+    .page-title {
+        font-size: 1.5rem;
+    }
+    .page-title i {
+        font-size: 1.5rem;
+    }
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    .header-actions .btn {
+        width: 100%;
+    }
+    .form-card {
+        padding: 1.5rem 1rem;
+        border-radius: 15px;
+    }
+    .form-label {
+        font-size: 1rem;
+    }
+    .preview-text {
+        font-size: 1rem;
+    }
+    .preview-author {
+        font-size: 1rem;
+    }
+}
+
+

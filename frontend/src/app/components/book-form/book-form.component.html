@@ -1,0 +1,198 @@
+<!-- Book Form Component HTML -->
+<div class="container-fluid form-container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <div class="header-content">
+      <h1 class="page-title">
+        <i class="fas fa-book"></i>
+        {{ isEditMode ? 'Edit Book' : 'Add New Book' }}
+      </h1>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="header-actions">
+      <button class="btn btn-outline-primary me-2" (click)="createBook()">
+        <i class="fas fa-arrow-left"></i>
+        Back to books
+      </button>
+      <button class="btn btn-outline-danger" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        Log out
+      </button>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+    <!-- Loading Spinner -->
+    <div class="text-center my-5" *ngIf="isLoading && isEditMode">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Laddar...</span>
+      </div>
+      <p class="mt-3">Loading books...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div class="alert alert-danger alert-dismissible fade show" *ngIf="errorMessage">
+      <i class="fas fa-exclamation-circle"></i>
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+    </div>
+
+    <!-- Book Form -->
+    <form *ngIf="!isLoading || !isEditMode" (ngSubmit)="onSubmit()" #bookForm="ngForm">
+      
+      <!-- Title Field -->
+      <div class="mb-4">
+        <label for="title" class="form-label">
+          <i class="fas fa-book"></i>
+          Title *
+        </label>
+        <input 
+          type="text"
+          class="form-control" 
+          id="title"
+          name="title"
+          [(ngModel)]="book.title"
+          placeholder="Skriv bokens titel..."
+          required
+          minlength="2"
+          maxlength="200"
+          #titleInput="ngModel">
+        
+        <div class="form-text">
+          <i class="fas fa-info-circle"></i>
+          Book's full title
+        </div>
+
+        <!-- Validation Messages -->
+        <div class="text-danger mt-1" *ngIf="titleInput.invalid && titleInput.touched">
+          <small *ngIf="titleInput.errors?.['required']">
+            <i class="fas fa-exclamation-triangle"></i>
+            Title is obligatory
+          </small>
+          <small *ngIf="titleInput.errors?.['minlength']">
+            <i class="fas fa-exclamation-triangle"></i>
+            Title must at least be two characters
+          </small>
+        </div>
+      </div>
+
+      <!-- Author Field -->
+      <div class="mb-4">
+        <label for="author" class="form-label">
+          <i class="fas fa-user"></i>
+          Author *
+        </label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="author"
+          name="author"
+          [(ngModel)]="book.author"
+          placeholder="T.ex. J.K. Rowling, George Orwell..."
+          required
+          minlength="2"
+          maxlength="100"
+          #authorInput="ngModel">
+
+        <div class="form-text">
+          <i class="fas fa-info-circle"></i>
+          Name of the book's author
+        </div>
+
+        <!-- Validation Messages -->
+        <div class="text-danger mt-1" *ngIf="authorInput.invalid && authorInput.touched">
+          <small *ngIf="authorInput.errors?.['required']">
+            <i class="fas fa-exclamation-triangle"></i>
+            Author is obligatory
+          </small>
+          <small *ngIf="authorInput.errors?.['minlength']">
+            <i class="fas fa-exclamation-triangle"></i>
+            Author must at least be two chracters
+          </small>
+        </div>
+      </div>
+
+      <!-- Publication Date Field -->
+      <div class="mb-4">
+        <label for="publicationDate" class="form-label">
+          <i class="fas fa-calendar"></i>
+        Publication's Date*
+        </label>
+        <input 
+          type="date" 
+          class="form-control" 
+          id="publicationDate"
+          name="publicationDate"
+          [(ngModel)]="book.publicationDate"
+          required
+          #dateInput="ngModel">
+
+        <div class="form-text">
+          <i class="fas fa-info-circle"></i>
+          When was the book published
+        </div>
+
+        <!-- Validation Messages -->
+        <div class="text-danger mt-1" *ngIf="dateInput.invalid && dateInput.touched">
+          <small *ngIf="dateInput.errors?.['required']">
+            <i class="fas fa-exclamation-triangle"></i>
+            Publication's date is obligatory
+          </small>
+        </div>
+      </div>
+
+      <!-- Book Preview -->
+      <div class="book-preview" *ngIf="book.title && book.author && book.publicationDate">
+        <h5 class="preview-title">
+          <i class="fas fa-eye"></i>
+          Preview
+        </h5>
+        <div class="preview-card">
+          <i class="fas fa-book book-icon"></i>
+          <h3 class="preview-book-title">{{ book.title }}</h3>
+          <div class="preview-info">
+            <div>
+              <i class="fas fa-user"></i>
+              <strong>Author:</strong> {{ book.author }}
+            </div>
+            <div>
+              <i class="fas fa-calendar"></i>
+              <strong>Published:</strong> {{ book.publicationDate | date: 'MMM d, yyyy' }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn btn-secondary btn-lg"
+          (click)="cancel()"
+          [disabled]="isLoading">
+          <i class="fas fa-times"></i>
+          Cancel
+        </button>
+
+        <button 
+          type="submit" 
+          class="btn btn-primary btn-lg"
+          [disabled]="bookForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="spinner-border spinner-border-sm me-2"></span>
+          <i *ngIf="!isLoading" class="fas fa-save"></i>
+          {{ isEditMode ? 'Update Book' : 'Save Book' }}
+        </button>
+      </div>
+
+      <!-- Helper Text -->
+      <div class="helper-text text-center mt-4">
+        <p class="text-muted">
+          <i class="fas fa-lightbulb"></i>
+          Tips: Add books you like or you want to read!
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
