@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { BooksService, Book } from '../../services/books.service';
 import {  AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Bookorm Component
@@ -37,6 +38,7 @@ export class BookFormComponent implements OnInit {
   bookId: string = '';              // ID of book being edited (if edit mode)
   isLoading: boolean = false;       // Loading state during save
   errorMessage: string = '';        // Error messages
+  isDarkMode: boolean = false;
   
   /**
    * Constructor - Dependency Injection
@@ -50,7 +52,8 @@ export class BookFormComponent implements OnInit {
     private booksService: BooksService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute  // Access URL parameters
+    private route: ActivatedRoute,  // Access URL parameters
+    private themeService: ThemeService
   ) {}
   /**
    * ngOnInit - Lifecicle Hook
@@ -59,6 +62,10 @@ export class BookFormComponent implements OnInit {
    * Determines if we are in Add or Edit mode
    */
   ngOnInit(): void {
+  // Subscribe to theme changes
+  this.themeService.isDarkMode$.subscribe(isDark => {
+    this.isDarkMode = isDark;
+  });
     /**
      * Get 'id' from URL parameters
      * 
@@ -272,4 +279,11 @@ export class BookFormComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/login']);
   }
+
+  /**
+ * Toggle Theme
+ */
+toggleTheme(): void {
+  this.themeService.toggleTheme();
+}
 }

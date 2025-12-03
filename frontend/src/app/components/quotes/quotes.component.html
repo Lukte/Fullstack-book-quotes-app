@@ -12,6 +12,9 @@
 
     <!-- Navigation Buttons -->
     <div class="header-actions">
+      <button class="theme-toggle" (click)="toggleTheme()" title="change theme">
+        <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
+      </button>
       <button class="btn btn-outline-primary me-2" (click)="goToBooks()">
         <i class="fas fa-book"></i>
         Books
@@ -21,6 +24,7 @@
         Log out
       </button>
     </div>
+      
   </div>
 
   <!-- Add New Quote Button -->
@@ -32,7 +36,7 @@
       <i class="fas fa-plus-circle"></i>
       Add New Quote
     </button>
-    <p class="quote-count-info" *ngIf="quotes.length > 0">
+    <p class="quote-counter" *ngIf="quotes.length > 0">
       {{ quotes.length }} / 5 quote
     </p>
   </div>

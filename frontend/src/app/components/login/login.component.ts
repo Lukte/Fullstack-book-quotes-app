@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 /**
  * Login component
  * - A component is a building block of angular apps
- * it combines: HTML (tmeplates) + typeScrips (logic) + CSS (styles
+ * it combines: HTML (templates) + typeScrips (logic) + CSS (styles
  * this component handles user login
  * */
 
@@ -35,11 +35,11 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
   /**
    * Component Properties (Data)
-   * This are the variables that store the component's state
+   * These are the variables that store the component's state
    * they can be used in the HTML template
    */
 
-  // Form data - bound to imput fields in HTML
+  // Form data - bound to input fields in HTML
   username: string = ''; // stores username input
   password: string = ''; // stors password input
 
@@ -53,7 +53,7 @@ export class LoginComponent {
    * 
    * Dependency Injection:
    * - Angular automatically provides (injects) these services
-   * - We just need what we need, Angular hadles the rest
+   * - We just need, Angular hadles the rest
    * @param authService - Service to handle authentication
    * @param router - Services to navigate between pages
    */

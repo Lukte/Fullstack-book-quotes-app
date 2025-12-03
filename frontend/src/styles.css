@@ -1,1 +1,53 @@
-/* You can add global styles to this file, and also import other style files */
+/* ==========================================
+   THEME SYSTEM - Light & Dark Mode
+   ========================================== */
+
+/* Light Theme (Default) */
+:root {
+    --bg-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --text-light: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.2);
+    --accent-color: #667eea;
+    --accent-hover: #5568d3;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --empty-state-bg: #ffffff;
+    --preview-bg: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+/* Dark Theme */
+body.dark-theme {
+    --bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --bg-secondary: #0f3460;
+    --bg-card: #1a1a2e;
+    --text-primary: #e4e4e4;
+    --text-secondary: #b0b0b0;
+    --text-light: #ffffff;
+    --border-color: #2a2a3e;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.7);
+    --accent-color: #4a90e2;
+    --accent-hover: #357abd;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --empty-state-bg: #1a1a2e;
+    --preview-bg: linear-gradient(135deg, #2a2a3e 0%, #16213e 100%);
+}
+
+/* Apply theme colors globally */
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Smooth transitions for theme changes */
+* {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

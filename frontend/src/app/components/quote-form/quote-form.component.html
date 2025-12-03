@@ -12,6 +12,9 @@
      
      <!-- Navigation bar -->
       <div class="header-actions">
+         <button class="theme-toggle" (click)="toggleTheme()" title="Change theme">
+        <i class="fas" [ngClass]="isDarkMode ? 'fa-sun' : 'fa-moon'"></i>
+        </button>
         <button class="btn btn-outline-primary me-2" (click)="goToQuotes()">
             <i class="fas fa-arrow-left"></i>
             Back to Quotes

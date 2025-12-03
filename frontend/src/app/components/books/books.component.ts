@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { BooksService, Book } from '../../services/books.service';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 /**
  * Books COmponent
  * 
@@ -27,6 +28,7 @@ export class BooksComponent implements OnInit {
   errorMessage: string = '';    // Error messages
   username: string = '';  
   successMessage: string = '';      // current user's name
+  isDarkMode: boolean = false;
 
   /**
    * Constructor - Dependency Injection
@@ -37,7 +39,8 @@ export class BooksComponent implements OnInit {
   constructor(
     private booksService: BooksService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService  
   ){}
 
   /**
@@ -49,12 +52,16 @@ export class BooksComponent implements OnInit {
    * 1. Get username
    * 2. Load books from backend
    */
-  ngOnInit(): void {
-    // Get username from Auth Service
-    this.username = this.authService.getUsername() || 'user';
-    // Load books when component initializes
-    this.loadBooks();
-  }
+ngOnInit(): void {
+  this.username = this.authService.getUsername() || 'user';
+  
+  // Subscribe to theme changes
+  this.themeService.isDarkMode$.subscribe(isDark => {
+    this.isDarkMode = isDark;
+  });
+  
+  this.loadBooks();
+}
 
   /**
    * Load books from backend
@@ -221,4 +228,11 @@ export class BooksComponent implements OnInit {
   goToQuotes(): void {
     this.router.navigate(['/quotes']);
   }
+
+  /**
+ * Toggle Theme
+ */
+toggleTheme(): void {
+  this.themeService.toggleTheme();
+}
 }

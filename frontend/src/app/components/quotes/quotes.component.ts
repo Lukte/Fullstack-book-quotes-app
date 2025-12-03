@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { QuotesService, Quote } from '../../services/quotes.service';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Quotes component
@@ -26,6 +27,7 @@ export class QuotesComponent implements OnInit {
   successMessage: string = ''; // Success messages
   username: string = ''; // Current user name
   canAddMore: boolean = true; // Check if user can add more quotes
+  isDarkMode: boolean = false;
 
   /**
    * Constructor - Dependecy Injection
@@ -36,7 +38,8 @@ export class QuotesComponent implements OnInit {
   constructor (
     private quotesService: QuotesService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private themeService: ThemeService
   ) {}
 
 /**
@@ -49,6 +52,11 @@ export class QuotesComponent implements OnInit {
 ngOnInit(): void {
   // Get username from Auth Service
   this.username = this.authService.getUsername() || 'user';
+
+  // Subscribe to theme changes
+  this.themeService.isDarkMode$.subscribe(isDark => {
+    this.isDarkMode = isDark;
+  });
   // loads quotes when component initializes
   this.loadQuotes();
 }
@@ -225,6 +233,13 @@ logout(): void {
   this.authService.logout();
   // navigate to login page
   this.router.navigate(['/login']);
+}
+
+/**
+ * Toggle Theme
+ */
+toggleTheme(): void {
+  this.themeService.toggleTheme();
 }
 
 }

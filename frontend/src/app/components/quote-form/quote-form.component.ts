@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuotesService, Quote } from '../../services/quotes.service';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 
 /**
  * Quote form Component
@@ -35,6 +36,7 @@ export class QuoteFormComponent implements OnInit {
   isLoading: boolean = false;   // Loading state
   errorMessage: string = '';    // error message
   username: string = '';        // Current user's name
+  isDarkMode: boolean = false;
 
   /**
    * Constructor - Dependency Injection
@@ -47,7 +49,8 @@ export class QuoteFormComponent implements OnInit {
     private quotesService: QuotesService,
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private themeService: ThemeService
   ){}
 
   /**
@@ -59,6 +62,11 @@ export class QuoteFormComponent implements OnInit {
   ngOnInit(): void {
     // Get username
     this.username = this.authService.getUsername() || 'user';
+
+    // subscribe to the theme changes
+    this.themeService.isDarkMode$.subscribe(isDark =>{
+      this.isDarkMode = isDark;
+    });
     /**
      * Check route paramaters for quote ID
      * If ID exists, we are in the edit mode
@@ -258,4 +266,10 @@ export class QuoteFormComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  /**
+   * Toggle Theme
+   */
+  toggleTheme(): void { 
+    this.themeService.toggleTheme();
+  }
 }
