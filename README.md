@@ -75,21 +75,26 @@ ng serve --no-ssr
 ![register page](screenshots/2-register.png)
 
 ### Books Management
-![Books List](screenshots/3-books-list.png)
+![Books List](screenshots/3-books-list-light.png)
+
+![Books List](screenshots/4-books-list-dark.png)
 
 
 ### Quotes Management
-![Quotes List](screenshots/4-quotes-list.png)
+![Quotes List](screenshots/5-quotes-list-light.png)
+![Quotes List](screenshots/6-quotes-list-dark.png)
 
 
 ### Book Form
-![Book Form](screenshots/5-book-form.png)
+![Book Form](screenshots/7-book-form-light.png)
+![Book Form](screenshots/8-book-form-dark.png)
 
 ### Quote Form
-![Quote Form](screenshots/6-quote-form.png)
+![Quote Form](screenshots/9-quote-form-light.png)
+![Quote Form](screenshots/10-quote-form-dark.png)
 
 ### Mobile View (Responsive Design)
-![Mobile View](screenshots/7-mobile-view.png)
+![Mobile View](screenshots/11-mobile-view.png)
 
 
 
