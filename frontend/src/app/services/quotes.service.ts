@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 /**
  * Quote Interface
@@ -25,7 +26,7 @@ export interface Quote {
   providedIn: 'root' // is available throughout the app
 })
 export class QuotesService {
-  private apiUrl = 'http://localhost:3000/api/quotes';
+  private apiUrl = `${environment.apiUrl}/api/quotes`;
 
   /**
    * Constructor - Dependency Injection

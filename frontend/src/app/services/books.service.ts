@@ -1,3 +1,4 @@
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -28,7 +29,7 @@ export interface Book {
   providedIn: 'root' // Available throughout the app
 })
 export class BooksService {
-  private apiUrl = 'http://localhost:3000/api/books';
+  private apiUrl = `${environment.apiUrl}/api/books`;
 
   /**
    * Constructor - Dependency Injection

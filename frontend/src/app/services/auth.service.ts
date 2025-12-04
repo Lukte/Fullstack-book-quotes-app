@@ -1,4 +1,5 @@
 // import necessary modules from angular
+import { environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -11,7 +12,7 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
 
   // Api URL - this is where our Node.js backend is running
-  private  apiUrl = 'http://localhost:3000/api/auth';
+  private  apiUrl = `${environment.apiUrl}/api/auth`;
   
   // BehaviorSubject to track if user is logged in
   // BehaviorSubject is like a variable that components can 'subscribe' to
