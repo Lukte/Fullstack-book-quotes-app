@@ -86,8 +86,8 @@ ng serve --no-ssr
 
 
 ### Book Form
-![Book Form](screenshots/7-book-form-light.png)
-![Book Form](screenshots/8-book-form-dark.png)
+![Book Form](screenshots/7-books-form-light.png)
+![Book Form](screenshots/8-books-form-dark.png)
 
 ### Quote Form
 ![Quote Form](screenshots/9-quote-form-light.png)
