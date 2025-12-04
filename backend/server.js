@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
     origin: [
         'http://localhost:4200',
-        'https://fullstack-book-quotes-app.vercel.app' 
+        'https://fullstack-book-quotes-app-luktes-projects.vercel.app' 
     ],
     credentials: true
 }));
